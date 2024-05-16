@@ -1,0 +1,8 @@
+emb_dim: 300
+model: gin-virtual
+norm_layer: batch_norm
+num_layer: 5
+prior: 1.0e-09
+readout: sum
+threshold: 0.8
+walk_length: 4
