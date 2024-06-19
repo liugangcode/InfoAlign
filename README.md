@@ -1,6 +1,6 @@
 # Learning Molecular Representation in a Cell
 
-InfoAlign learns molecular representation from bottleneck information derived from molecular structures, cell morphology, and gene expressions.
+InfoAlign learns molecular representation from bottleneck information derived from molecular structures, cell morphology, and gene expressions. Readers are referred to the paper for more details: https://arxiv.org/abs/2406.12056v1.
 
 ![InfoAlign](assets/infoalign.png)
 
