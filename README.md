@@ -52,3 +52,17 @@ For readers interested in data collection, here are the sources:
 
 3. **Relationships**
    - Gene-gene, gene-compound relationships from Hetionet: [Data](https://github.com/hetio/hetionet).
+
+# Citation
+
+If you find this repository useful, please cite our paper:
+
+```
+@article{liu2024learning,
+  title={Learning Molecular Representation in a Cell},
+  author={Liu, Gang and Seal, Srijit and Arevalo, John and Liang, Zhenwen and Carpenter, Anne E and Jiang, Meng and Singh, Shantanu},
+  journal={arXiv preprint arXiv:2406.12056},
+  year={2024}
+}
+```
+
