@@ -9,8 +9,8 @@
 ---
 
 ## Update on Oct 14:
-- We have updated the development environment. All packages can now be installed with `pip install -r requirements.txt`!
-- We have automated the model and data download process for ML developers. The InfoAlign model can now be trained with a single command!
+- All packages can now be installed with `pip install -r requirements.txt`!
+- We have **automated** the model and data download process for ML developers. The InfoAlign model can now be trained with a single command!
 - We have created the `infoalign` package, which can be installed via `pip install infoalign`. For more details, refer to: [https://github.com/liugangcode/infoalign-package](https://github.com/liugangcode/infoalign-package).
 
 ---
