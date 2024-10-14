@@ -2,7 +2,19 @@
 
 **InfoAlign** learns molecular representations from bottleneck information derived from molecular structures, cell morphology, and gene expressions. For more details, please refer to our [paper](https://arxiv.org/abs/2406.12056v3).
 
-![InfoAlign](assets/infoalign.png)
+<div style="text-align: center;">
+    <img src="assets/infoalign.png" alt="InfoAlign" width="80%">
+</div>
+
+---
+
+## Update on Oct 14:
+- We have updated the development environment. All packages can now be installed with `pip install -r requirements.txt`!
+- We have automated the model and data download process for ML developers. The InfoAlign model can now be trained with a single command!
+- We have created the `infoalign` package, which can be installed via `pip install infoalign`. For more details, refer to: [https://github.com/liugangcode/infoalign-package](https://github.com/liugangcode/infoalign-package).
+
+---
+
 
 ## Requirements
 
