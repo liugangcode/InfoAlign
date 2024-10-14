@@ -88,5 +88,6 @@ coverage.xml
 **/*.npz
 *.pt 
 *.npz
-**/pretrain
+**/pretrain*
 **/*.zip
+requirements copy.txt

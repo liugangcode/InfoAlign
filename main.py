@@ -264,15 +264,80 @@ if __name__ == "__main__":
     pretrain_name = args.model_path.split("/")[-1]
     pretrain_name = pretrain_name.split(".")[0]
     args.pretrain_name = pretrain_name
+
     if args.dataset.startswith("finetune"):
         args.output_dir = f"output/{args.dataset}/{pretrain_name}"
         yaml_path = args.model_path.replace(".pt", ".yaml")
+
+        # Check if args.model_path exists
+        if not os.path.exists(args.model_path):
+            from huggingface_hub import hf_hub_download
+            os.makedirs(os.path.dirname(args.model_path), exist_ok=True)
+            hf_hub_download(repo_id="liuganghuggingface/InfoAlign-Pretrained", 
+                            filename="pretrain.pt", 
+                            local_dir=os.path.dirname(args.model_path),
+                            local_dir_use_symlinks=False)            
+            config_path = hf_hub_download(repo_id="liuganghuggingface/InfoAlign-Pretrained", 
+                                        filename="config.yaml", 
+                                        local_dir=os.path.dirname(yaml_path),
+                                        local_dir_use_symlinks=False)
+            
+            # Rename the downloaded config file to pretrain.yaml
+            new_yaml_path = os.path.join(os.path.dirname(yaml_path), "pretrain.yaml")
+            os.rename(config_path, new_yaml_path)
+            
+            print('args.model_path', args.model_path)
+            print('args.yaml_path', yaml_path)
+
         config = load_arguments_from_yaml(yaml_path, model_only=True)
         for arg, value in config.items():
             setattr(args, arg, value)
         log_path = log_path + ".finetune"
     else:
         log_path = log_path + ".pretrain"
+        
+        # Define the repository ID and local directory
+        repo_id = "liuganghuggingface/InfoAlign-Data"
+        local_dir = "raw_data/pretrain/raw"
+        
+        # Check if the local directory exists
+        if not os.path.exists(local_dir):
+            from huggingface_hub import hf_hub_download, HfApi
+            import os
+            
+            os.makedirs(local_dir, exist_ok=True)
+            
+            try:
+                # Use HfApi to list files
+                api = HfApi()
+                all_files = api.list_repo_files(repo_id, repo_type="dataset")
+                
+                # Filter for files in the pretrain_raw folder
+                pretrain_raw_files = [f for f in all_files if f.startswith("pretrain_raw/")]
+                
+                # Download each file
+                for file in pretrain_raw_files:
+                    # Extract the filename from the path
+                    filename = os.path.basename(file)
+                    
+                    hf_hub_download(repo_id=repo_id,
+                                    filename=file,
+                                    repo_type="dataset",
+                                    local_dir=local_dir,
+                                    local_dir_use_symlinks=False)
+                    
+                    # Rename the file to remove the 'pretrain_raw/' prefix
+                    old_path = os.path.join(local_dir, file)
+                    new_path = os.path.join(local_dir, filename)
+                    os.rename(old_path, new_path)
+                
+                print(f"Downloaded {len(pretrain_raw_files)} files to {local_dir}")
+            except Exception as e:
+                print(f"Error downloading dataset: {str(e)}")
+                print("Please check your internet connection and ensure you have the necessary permissions.")
+                print("If the issue persists, you may need to log in using `huggingface-cli login`")
+        else:
+            print(f"Directory {local_dir} already exists. Skipping download.")
 
     # logger = get_logger(__name__, logfile=log_path)
     logger = get_logger(__name__)

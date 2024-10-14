@@ -1,43 +1,66 @@
 # Learning Molecular Representation in a Cell
 
-InfoAlign learns molecular representation from bottleneck information derived from molecular structures, cell morphology, and gene expressions. Readers are referred to the paper for more details: https://arxiv.org/abs/2406.12056v1.
+**InfoAlign** learns molecular representations from bottleneck information derived from molecular structures, cell morphology, and gene expressions. For more details, please refer to our [paper](https://arxiv.org/abs/2406.12056v1).
 
 ![InfoAlign](assets/infoalign.png)
 
 ## Requirements
 
-This code was developed and tested with Python 3.11.7, PyTorch 2.1.0+cu118, and torch-geometric 2.5.2. All dependencies are specified in the `requirements.txt` file.
+This project was developed and tested with the following versions:
+
+- **Python**: 3.11.7
+- **PyTorch**: 2.2.0+cu118
+- **Torch Geometric**: 2.6.1
+
+All dependencies are listed in the `requirements.txt` file.
+
+### Setup Instructions
+
+1. **Create a Conda Environment**:
+    ```bash
+    conda create --name infoalign python=3.11.7
+    ```
+
+2. **Activate the Environment**:
+    ```bash
+    conda activate infoalign
+    ```
+
+3. **Install Dependencies**:
+    ```bash
+    pip install -r requirements.txt
+    ```
 
 ## Usage
 
 ### Fine-tuning
 
-We provide a checkpoint which can be downloaded from [Hugging Face](https://huggingface.co/liuganghuggingface/InfoAlign-Pretrained). Please place the model weights (`pretrain.pt`) under the `ckpt` folder along with its configurations in the YAML file.
-
-For fine-tuning and inference, use the following code:
+We provide a pretrained checkpoint available for download from [Hugging Face](https://huggingface.co/liuganghuggingface/InfoAlign-Pretrained). For fine-tuning and inference, use the following commands. The pretrained model will be automatically downloaded to the `ckpt/pretrain.pt` file by default.
 
 ```bash
 python main.py --model-path ckpt/pretrain.pt --dataset finetune-chembl2k
-
 python main.py --model-path ckpt/pretrain.pt --dataset finetune-broad6k
-
 python main.py --model-path ckpt/pretrain.pt --dataset finetune-biogenadme
-
 python main.py --model-path ckpt/pretrain.pt --dataset finetune-moltoxcast
 ```
 
-Note: Please visit [Hugging Face](https://huggingface.co/liuganghuggingface/InfoAlign-Pretrained) for the cell morphology and gene expression features in the ChEMBL2k and Broad6K datasets.
+Alternatively, you can manually download the model weights and place the `pretrain.pt` file under the `ckpt` folder along with its corresponding YAML configuration file.
+
+**Note**: If you wish to access the cell morphology and gene expression features in the ChEMBL2k and Broad6K datasets for baseline evaluation, visit our [Hugging Face repository](https://huggingface.co/liuganghuggingface/InfoAlign-Pretrained) to download these features.
 
 ### Pretraining
 
-To pretrain the model from scratch, first download the pretraining dataset from [Hugging Face](https://huggingface.co/datasets/liuganghuggingface/InfoAlign-Data). Place all pretrain data files under the `raw_data/pretrain/raw` folder. Then run the following code:
+To pretrain the model from scratch, execute the following command:
 
 ```bash
 python main.py --model-path "ckpt/pretrain.pt" --lr 1e-4 --wdecay 1e-8 --batch-size 3072
 ```
 
-The pretrained result will be saved in the `ckpt` folder with the name `pretrain.pt`.
+This will automatically download the pretraining dataset from [Hugging Face](https://huggingface.co/datasets/liuganghuggingface/InfoAlign-Data). If you prefer to download the dataset manually, place all pretraining data files in the `raw_data/pretrain/raw` folder.
 
+The pretrained model will be saved in the `ckpt` folder as `pretrain.pt`.
+
+---
 
 ## Data source
 
