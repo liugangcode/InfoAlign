@@ -2,9 +2,10 @@
 
 **InfoAlign** learns molecular representations from bottleneck information derived from molecular structures, cell morphology, and gene expressions. For more details, please refer to our [paper](https://arxiv.org/abs/2406.12056v3).
 
-<div style="text-align: center;">
+<p align="center">
     <img src="assets/infoalign.png" alt="InfoAlign" width="80%">
-</div>
+</p>
+
 
 ---
 
