@@ -23,17 +23,16 @@ def get_data(args, load_path, transform="pyg"):
     else:
         data_name = args.dataset
 
-    if data_name in ["broad6k", "chembl2k", "biogenadme", "moltoxcast"]:
-        assert transform in ["fingerprint", "smiles", "morphology", "expression", "pyg"]
-        if transform == "pyg":
-            from .prediction_molecule import PygPredictionMoleculeDataset
+    # if data_name in ["broad6k", "chembl2k", "biogenadme", "moltoxcast"]:
+    assert transform in ["fingerprint", "smiles", "morphology", "expression", "pyg"]
+    if transform == "pyg":
+        from .prediction_molecule import PygPredictionMoleculeDataset
 
-            return PygPredictionMoleculeDataset(name=data_name, root=load_path)
-        else:
-            from .prediction_molecule import PredictionMoleculeDataset
+        return PygPredictionMoleculeDataset(name=data_name, root=load_path)
+    else:
+        from .prediction_molecule import PredictionMoleculeDataset
 
-            return PredictionMoleculeDataset(
-                name=data_name, root=load_path, transform=transform
-            )
+        return PredictionMoleculeDataset(
+            name=data_name, root=load_path, transform=transform
+        )
 
-    raise ValueError("Dataset {} not support yet".format(args.dataset))

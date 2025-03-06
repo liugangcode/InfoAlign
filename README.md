@@ -8,7 +8,11 @@
 
 
 ---
+## Update on March 6, 2025:
+- Added `convert_to_dataset.py`, which can be used to convert CSV files into a dataset for fine-tuning. For example:
 
+  ```bash
+  python convert_to_dataset.py --task_name chembl2k_sub --csv_path raw_data/chembl2k/raw/assays.csv.gz --smiles_column smiles --property_columns ABCB1 ABL1
 ## Update on Oct 14, 2024:
 - All packages can now be installed with `pip install -r requirements.txt`!
 - We have **automated** the model and data download process for ML developers. The InfoAlign model can now be trained with a single command!

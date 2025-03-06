@@ -1,7 +1,7 @@
 import ast
 import os
 import os.path as osp
-
+import json
 import pandas as pd
 import numpy as np
 import torch
@@ -32,7 +32,15 @@ class PygPredictionMoleculeDataset(InMemoryDataset):
             self.num_tasks = 617
             self.start_column = 2
         else:
-            raise ValueError("Invalid dataset name")
+            meta_path = osp.join(self.root, "raw", "meta.json")
+            if os.path.exists(meta_path):
+                with open(meta_path, "r") as f:
+                    meta = json.load(f)
+                self.num_tasks = meta["num_tasks"]
+                self.start_column = meta["start_column"]
+                self.eval_metric = meta["eval_metric"]
+            else:
+                raise ValueError("Invalid dataset name")
 
         super(PygPredictionMoleculeDataset, self).__init__(
             self.root, transform, pre_transform
@@ -149,7 +157,14 @@ class PredictionMoleculeDataset(object):
             self.start_column = 4
             self.eval_metric = "avg_mae"
         else:
-            raise ValueError("Invalid dataset name")
+            meta_path = osp.join(self.folder, "raw", "meta.json")
+            if os.path.exists(meta_path):
+                with open(meta_path, "r") as f:
+                    meta = json.load(f)
+                self.num_tasks = meta["num_tasks"]
+                self.start_column = meta["start_column"]
+            else:
+                raise ValueError("Invalid dataset name")
 
         super(PredictionMoleculeDataset, self).__init__()
         if transform == "smiles":
