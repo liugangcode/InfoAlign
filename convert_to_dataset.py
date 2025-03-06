@@ -82,16 +82,7 @@ class CSVToDataset:
         return True
 
 
-# Example usage
 if __name__ == "__main__":
-    # Example:
-    # converter = CSVToDataset("solubility")
-    # converter.convert(
-    #     csv_path="path/to/your/data.csv",
-    #     smiles_column="Molecule",
-    #     property_columns=["LogS", "Solubility_Class"]
-    # )
-    
     import argparse
     
     parser = argparse.ArgumentParser(description='Convert CSV files to standardized dataset format')
