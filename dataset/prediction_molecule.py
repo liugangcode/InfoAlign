@@ -28,6 +28,9 @@ class PygPredictionMoleculeDataset(InMemoryDataset):
             self.num_tasks = 6
             self.start_column = 4
             self.eval_metric = "avg_mae"
+        elif name == "moltoxcast":
+            self.num_tasks = 617
+            self.start_column = 2
         else:
             raise ValueError("Invalid dataset name")
 

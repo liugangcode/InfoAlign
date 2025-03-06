@@ -57,13 +57,9 @@ def save_prediction(model, device, loader, dataset, output_dir, seed):
     y_true = torch.cat(y_true, dim=0).numpy()
     y_pred = torch.cat(y_pred, dim=0).numpy()
 
-    data_name = "_".join(dataset.name.split("-")) if "moltoxcast" in dataset.name else dataset.name
-    assay_path = f"raw_data/{data_name}/raw/assays.csv.gz"
+    assay_path = f"raw_data/{dataset.name}/raw/assays.csv.gz"
     assay_df = pd.read_csv(assay_path, compression="gzip")
-    if "moltoxcast" in dataset.name:
-        assay_names = assay_df.columns[:-2]
-    else:
-        assay_names = assay_df.columns[dataset.start_column :]
+    assay_names = assay_df.columns[dataset.start_column :]
     
     y_pred[np.isnan(y_true)] = np.nan
     os.makedirs(output_dir, exist_ok=True)
@@ -145,7 +141,6 @@ def init_weights(net, init_type="normal", init_gain=0.02):
 
     print("initialize network with %s" % init_type)
     net.apply(init_func)  # apply the initialization function <init_func>
-
 
 class AverageMeter(object):
     """Computes and stores the average and current value
